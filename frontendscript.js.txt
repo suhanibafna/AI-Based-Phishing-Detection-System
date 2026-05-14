@@ -1,0 +1,64 @@
+// frontend/script.js
+
+async function checkURL() {
+
+    const url = document.getElementById("urlInput").value;
+    const resultBox = document.getElementById("resultBox");
+    const loading = document.getElementById("loading");
+
+    if(url === ""){
+        alert("Please enter a URL");
+        return;
+    }
+
+    loading.style.display = "block";
+    resultBox.innerHTML = "";
+
+    try{
+
+        const response = await fetch("http://127.0.0.1:5000/predict",{
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify({
+                url:url
+            })
+        });
+
+        const data = await response.json();
+
+        loading.style.display = "none";
+
+        if(data.prediction === "Phishing"){
+
+            resultBox.style.background = "#fee2e2";
+            resultBox.style.color = "#dc2626";
+
+            resultBox.innerHTML = `
+                🚨 Phishing Website Detected <br><br>
+                Confidence: ${data.confidence}%
+            `;
+        }
+        else{
+
+            resultBox.style.background = "#dcfce7";
+            resultBox.style.color = "#16a34a";
+
+            resultBox.innerHTML = `
+                ✅ Legitimate Website <br><br>
+                Confidence: ${data.confidence}%
+            `;
+        }
+
+    }
+    catch(error){
+
+        loading.style.display = "none";
+
+        resultBox.style.background = "#fee2e2";
+        resultBox.style.color = "#dc2626";
+
+        resultBox.innerHTML = "Server Error";
+    }
+}

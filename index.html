@@ -1,0 +1,47 @@
+<!-- frontend/index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Based Phishing Detection System</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="card">
+
+            <h1>🛡️ AI Based Phishing Detection</h1>
+
+            <p class="subtitle">
+                Enter a website URL to detect whether it is Legitimate or Phishing
+            </p>
+
+            <input 
+                type="text" 
+                id="urlInput" 
+                placeholder="Enter URL here..."
+            >
+
+            <button onclick="checkURL()">
+                Analyze URL
+            </button>
+
+            <div id="loading" class="loading">
+                Analyzing...
+            </div>
+
+            <div id="resultBox" class="result-box"></div>
+
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
